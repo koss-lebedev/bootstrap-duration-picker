@@ -1,8 +1,8 @@
-# bootstrap-duration-picker
+#bootstrap-duration-picker
 
 Javascript library for selecting duration. It's a refactored version of https://github.com/mjnaderi/jquery-duration-picker updated to use Bootstrap. Target input to which plugin is applied should contain duration in seconds.
 
-## Example
+##Example
 
 ![Bootstrap-Duration-Picker](demo.png)
 
@@ -11,7 +11,7 @@ Javascript library for selecting duration. It's a refactored version of https://
 - jQuery 1.*
 - Bootstrap 3.* (used for popovers)
 
-## Usage
+##Usage
 
 ```html
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
@@ -33,3 +33,7 @@ $('.duration-picker').durationPicker({
     showSeconds: false // defines whether to show seconds or not 
 });
 ```
+
+##License
+
+Please see [LICENSE](LICENSE) for licensing details.
