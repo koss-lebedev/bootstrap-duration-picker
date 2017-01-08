@@ -1,0 +1,28 @@
+{
+  "name": "bootstrap-duration-picker",
+  "description": "Bootstrap duration picker",
+  "main": [
+    "src/bootstrap-duration-picker.js",
+    "src/bootstrap-duration-picker.css"
+  ],
+  "authors": [
+    "Constantine Lebedev"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "bootstrap",
+    "duration",
+    "picker"
+  ],
+  "homepage": "https://github.com/koss-lebedev/bootstrap-duration-picker",
+  "dependencies": {
+    "bootstrap": ">= 3.0.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

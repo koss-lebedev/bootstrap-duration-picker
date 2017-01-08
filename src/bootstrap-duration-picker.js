@@ -101,7 +101,7 @@
                 updatePicker();
             }
 
-            function picker_changed() {
+            function durationPickerChanged() {
                 days =    parseInt(inputs['days'].val())    || 0;
                 hours =   parseInt(inputs['hours'].val())   || 0;
                 minutes = parseInt(inputs['minutes'].val()) || 0;
@@ -112,7 +112,7 @@
 
             function buildNumericInput(label, hidden, max) {
                 var input = $('<input class="form-control input-sm" type="number" min="0" value="0">')
-                    .change(picker_changed);
+                    .change(durationPickerChanged);
                 if (max) {
                     input.attr('max', max);
                 }
