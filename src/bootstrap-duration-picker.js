@@ -55,7 +55,7 @@
             var inputs = [];
 
             var disabled = false;
-            if (mainInput.hasClass('disabled') || mainInput.attr('disabled')=='disabled') {
+            if (mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled') {
                 disabled = true;
                 mainInputReplacer.addClass('disabled');
             }
@@ -72,10 +72,10 @@
                 mainInputReplacer.find('#bdp-minutes').text(settings.formatter(minutes));
                 mainInputReplacer.find('#bdp-seconds').text(settings.formatter(seconds));
 
-                mainInputReplacer.find('#days_label').text(langs[settings.lang][days == 1 ? 'day' : 'days']);
-                mainInputReplacer.find('#hours_label').text(langs[settings.lang][hours == 1 ? 'hour' : 'hours']);
-                mainInputReplacer.find('#minutes_label').text(langs[settings.lang][minutes == 1 ? 'minute' : 'minutes']);
-                mainInputReplacer.find('#seconds_label').text(langs[settings.lang][seconds == 1 ? 'second' : 'seconds']);
+                mainInputReplacer.find('#days_label').text(langs[settings.lang][days === 1 ? 'day' : 'days']);
+                mainInputReplacer.find('#hours_label').text(langs[settings.lang][hours === 1 ? 'hour' : 'hours']);
+                mainInputReplacer.find('#minutes_label').text(langs[settings.lang][minutes === 1 ? 'minute' : 'minutes']);
+                mainInputReplacer.find('#seconds_label').text(langs[settings.lang][seconds === 1 ? 'second' : 'seconds']);
             }
 
             function updatePicker() {
