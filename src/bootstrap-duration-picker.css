@@ -1,7 +1,7 @@
 .bdp-input {
     border-radius: 2px;
     padding: 0 3px;
-    border: 1px solid rgba(34, 36, 38, .15);
+    border: 1px solid #cfdadd;
     cursor: pointer;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .bdp-popover input {
-    display: inline;
+    display: inline-block;
     margin-bottom: 3px;
     width: 60px;
 }

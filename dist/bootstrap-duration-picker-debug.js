@@ -55,7 +55,7 @@
             var inputs = [];
 
             var disabled = false;
-            if (mainInput.hasClass('disabled') || mainInput.attr('disabled')=='disabled') {
+            if (mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled') {
                 disabled = true;
                 mainInputReplacer.addClass('disabled');
             }
@@ -72,10 +72,10 @@
                 mainInputReplacer.find('#bdp-minutes').text(settings.formatter(minutes));
                 mainInputReplacer.find('#bdp-seconds').text(settings.formatter(seconds));
 
-                mainInputReplacer.find('#days_label').text(langs[settings.lang][days == 1 ? 'day' : 'days']);
-                mainInputReplacer.find('#hours_label').text(langs[settings.lang][hours == 1 ? 'hour' : 'hours']);
-                mainInputReplacer.find('#minutes_label').text(langs[settings.lang][minutes == 1 ? 'minute' : 'minutes']);
-                mainInputReplacer.find('#seconds_label').text(langs[settings.lang][seconds == 1 ? 'second' : 'seconds']);
+                mainInputReplacer.find('#days_label').text(langs[settings.lang][days === 1 ? 'day' : 'days']);
+                mainInputReplacer.find('#hours_label').text(langs[settings.lang][hours === 1 ? 'hour' : 'hours']);
+                mainInputReplacer.find('#minutes_label').text(langs[settings.lang][minutes === 1 ? 'minute' : 'minutes']);
+                mainInputReplacer.find('#seconds_label').text(langs[settings.lang][seconds === 1 ? 'second' : 'seconds']);
             }
 
             function updatePicker() {
@@ -102,10 +102,10 @@
             }
 
             function durationPickerChanged() {
-                days =    parseInt(inputs['days'].val())    || 0;
-                hours =   parseInt(inputs['hours'].val())   || 0;
-                minutes = parseInt(inputs['minutes'].val()) || 0;
-                seconds = parseInt(inputs['seconds'].val()) || 0;
+                days =    parseInt(inputs['days'].val(), 10)    || 0;
+                hours =   parseInt(inputs['hours'].val(), 10)   || 0;
+                minutes = parseInt(inputs['minutes'].val(), 10) || 0;
+                seconds = parseInt(inputs['seconds'].val(), 10) || 0;
                 updateMainInput();
                 updateMainInputReplacer();
             }
