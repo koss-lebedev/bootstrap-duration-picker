@@ -102,10 +102,10 @@
             }
 
             function durationPickerChanged() {
-                days =    parseInt(inputs['days'].val())    || 0;
-                hours =   parseInt(inputs['hours'].val())   || 0;
-                minutes = parseInt(inputs['minutes'].val()) || 0;
-                seconds = parseInt(inputs['seconds'].val()) || 0;
+                days =    parseInt(inputs['days'].val(), 10)    || 0;
+                hours =   parseInt(inputs['hours'].val(), 10)   || 0;
+                minutes = parseInt(inputs['minutes'].val(), 10) || 0;
+                seconds = parseInt(inputs['seconds'].val(), 10) || 0;
                 updateMainInput();
                 updateMainInputReplacer();
             }
