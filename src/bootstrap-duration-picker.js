@@ -47,10 +47,10 @@
 
             mainInput.after(mainInputReplacer).hide().data('bdp', '1');
 
-            var days = 0;
-            var hours = 0;
-            var minutes = 0;
-            var seconds = 0;
+            var days = 0,
+                hours = 0,
+                minutes = 0,
+                seconds = 0;
 
             var inputs = [];
 
@@ -66,16 +66,25 @@
                 mainInput.change();
             }
 
-            function updateMainInputReplacer() {
-                mainInputReplacer.find('#bdp-days').text(settings.formatter(days));
-                mainInputReplacer.find('#bdp-hours').text(settings.formatter(hours));
-                mainInputReplacer.find('#bdp-minutes').text(settings.formatter(minutes));
-                mainInputReplacer.find('#bdp-seconds').text(settings.formatter(seconds));
+            function updateWordLabel(selector, value, label) {
+                var text = value === 1 ? label : label + 's';
+                mainInputReplacer.find(selector).text(langs[settings.lang][text]);
+            }
 
-                mainInputReplacer.find('#days_label').text(langs[settings.lang][days === 1 ? 'day' : 'days']);
-                mainInputReplacer.find('#hours_label').text(langs[settings.lang][hours === 1 ? 'hour' : 'hours']);
-                mainInputReplacer.find('#minutes_label').text(langs[settings.lang][minutes === 1 ? 'minute' : 'minutes']);
-                mainInputReplacer.find('#seconds_label').text(langs[settings.lang][seconds === 1 ? 'second' : 'seconds']);
+            function updateValueLabel(selector, value) {
+                mainInputReplacer.find(selector).text(settings.formatter(value));
+            }
+
+            function updateMainInputReplacer() {
+                updateValueLabel('#bdp-days', days);
+                updateValueLabel('#bdp-hours', hours);
+                updateValueLabel('#bdp-minutes', minutes);
+                updateValueLabel('#bdp-seconds', seconds);
+
+                updateWordLabel('#days_label', days, 'day');
+                updateWordLabel('#hours_label', hours, 'hour');
+                updateWordLabel('#minutes_label', minutes, 'minute');
+                updateWordLabel('#seconds_label', seconds, 'second');
             }
 
             function updatePicker() {
