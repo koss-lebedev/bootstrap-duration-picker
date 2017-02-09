@@ -1,3 +1,5 @@
+'use strict';
+
 (function ($) {
 
     var langs = {
@@ -17,33 +19,24 @@
 
         var defaults = {
             lang: 'en',
-            formatter: function (s) {
+            formatter: function formatter(s) {
                 return s;
             },
             showSeconds: false
         };
-        var settings = $.extend( {}, defaults, options );
+        var settings = $.extend({}, defaults, options);
 
         this.each(function (i, mainInput) {
 
             mainInput = $(mainInput);
 
-            if (mainInput.data('bdp') === '1')
-                return;
+            if (mainInput.data('bdp') === '1') return;
 
             function buildDisplayBlock(id, hidden) {
-                return '<div class="bdp-block '+ (hidden ? 'hidden' : '') + '">' +
-                            '<span id="bdp-'+ id +'"></span><br>' +
-                            '<span class="bdp-label" id="' + id + '_label"></span>' +
-                        '</div>';
+                return '<div class="bdp-block ' + (hidden ? 'hidden' : '') + '">\n                            <span id="bdp-' + id + '"></span><br>\n                            <span class="bdp-label" id="bdp-' + id + '-label"></span>\n                        </div>';
             }
 
-            var mainInputReplacer = $('<div class="bdp-input">' +
-                buildDisplayBlock('days') +
-                buildDisplayBlock('hours') +
-                buildDisplayBlock('minutes') +
-                buildDisplayBlock('seconds', !settings.showSeconds) +
-            '</div>');
+            var mainInputReplacer = $('<div class="bdp-input">' + buildDisplayBlock('days') + buildDisplayBlock('hours') + buildDisplayBlock('minutes') + buildDisplayBlock('seconds', !settings.showSeconds) + '</div>');
 
             mainInput.after(mainInputReplacer).hide().data('bdp', '1');
 
@@ -81,15 +74,14 @@
                 updateValueLabel('#bdp-minutes', minutes);
                 updateValueLabel('#bdp-seconds', seconds);
 
-                updateWordLabel('#days_label', days, 'day');
-                updateWordLabel('#hours_label', hours, 'hour');
-                updateWordLabel('#minutes_label', minutes, 'minute');
-                updateWordLabel('#seconds_label', seconds, 'second');
+                updateWordLabel('#bdp-days-label', days, 'day');
+                updateWordLabel('#bdp-hours-label', hours, 'hour');
+                updateWordLabel('#bdp-minutes-label', minutes, 'minute');
+                updateWordLabel('#bdp-seconds-label', seconds, 'second');
             }
 
             function updatePicker() {
-                if (disabled)
-                    return;
+                if (disabled) return;
                 inputs['days'].val(days);
                 inputs['hours'].val(hours);
                 inputs['minutes'].val(minutes);
@@ -97,22 +89,21 @@
             }
 
             function init() {
-                if (mainInput.val() === '')
-                    mainInput.val(0);
+                if (mainInput.val() === '') mainInput.val(0);
                 var total = parseInt(mainInput.val(), 10);
                 seconds = total % 60;
-                total = Math.floor(total/60);
+                total = Math.floor(total / 60);
                 minutes = total % 60;
-                total = Math.floor(total/60);
+                total = Math.floor(total / 60);
                 hours = total % 24;
-                days = Math.floor(total/24);
+                days = Math.floor(total / 24);
                 updateMainInputReplacer();
                 updatePicker();
             }
 
             function durationPickerChanged() {
-                days =    parseInt(inputs['days'].val(), 10)    || 0;
-                hours =   parseInt(inputs['hours'].val(), 10)   || 0;
+                days = parseInt(inputs['days'].val(), 10) || 0;
+                hours = parseInt(inputs['hours'].val(), 10) || 0;
                 minutes = parseInt(inputs['minutes'].val(), 10) || 0;
                 seconds = parseInt(inputs['seconds'].val(), 10) || 0;
                 updateMainInput();
@@ -120,8 +111,7 @@
             }
 
             function buildNumericInput(label, hidden, max) {
-                var input = $('<input class="form-control input-sm" type="number" min="0" value="0">')
-                    .change(durationPickerChanged);
+                var input = $('<input class="form-control input-sm" type="number" min="0" value="0">').change(durationPickerChanged);
                 if (max) {
                     input.attr('max', max);
                 }
@@ -150,7 +140,5 @@
             init();
             mainInput.change(init);
         });
-
     };
-
-}(jQuery));
+})(jQuery);
