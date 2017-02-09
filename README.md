@@ -31,8 +31,24 @@ $('.duration-picker').durationPicker();
 
 $('.duration-picker').durationPicker({
     lang: 'en',
-    formatter: some_function // a function that gets numbers displayed in input and returns a formatted one,
-    showSeconds: false // defines whether to show seconds or not 
+
+    // defines whether to show seconds or not
+    showSeconds: false,
+
+    // a function that gets a number to be displayed in input and returns a formatted one
+    formatter: function (num) {
+        if (!+num)
+            return num;
+        var digits = String(+num).split(""),
+            key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                "","I","II","III","IV","V","VI","VII","VIII","IX"],
+            roman = "",
+            i = 3;
+        while (i--)
+            roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+        return Array(+digits.join("") + 1).join("M") + roman;
+    }
 });
 ```
 
