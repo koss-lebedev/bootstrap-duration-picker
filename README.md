@@ -4,6 +4,18 @@ Javascript library for selecting duration. It's a refactored version of https://
 
 [![Code Climate](https://codeclimate.com/github/koss-lebedev/bootstrap-duration-picker/badges/gpa.svg)](https://codeclimate.com/github/koss-lebedev/bootstrap-duration-picker)
 
+##Installation
+
+Using Bower:
+
+    bower install bootstrap-duration-picker
+
+Using NPM:
+
+    npm install bootstrap-duration-picker
+
+Or simply copy `jquery-duration-picker.css` and `jquery-duration-picker.js` files to your project.
+
 ##Example
 
 ![Bootstrap-Duration-Picker](demo.png)
