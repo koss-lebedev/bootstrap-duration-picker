@@ -3,6 +3,7 @@
 Javascript library for selecting duration. It's a refactored version of https://github.com/mjnaderi/jquery-duration-picker updated to use Bootstrap. Target input to which plugin is applied should contain duration in seconds.
 
 [![Code Climate](https://codeclimate.com/github/koss-lebedev/bootstrap-duration-picker/badges/gpa.svg)](https://codeclimate.com/github/koss-lebedev/bootstrap-duration-picker)
+[![npm version](https://badge.fury.io/js/bootstrap-duration-picker.svg)](https://badge.fury.io/js/bootstrap-duration-picker)
 
 ##Installation
 
