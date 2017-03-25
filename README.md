@@ -1,4 +1,4 @@
-#bootstrap-duration-picker
+# bootstrap-duration-picker
 
 Javascript library for selecting duration. It's a refactored version of https://github.com/mjnaderi/jquery-duration-picker updated to use Bootstrap. Target input to which plugin is applied should contain duration in seconds.
 
@@ -6,7 +6,7 @@ Javascript library for selecting duration. It's a refactored version of https://
 [![npm version](https://badge.fury.io/js/bootstrap-duration-picker.svg)](https://badge.fury.io/js/bootstrap-duration-picker)
 [![Bower version](https://badge.fury.io/bo/bootstrap-duration-picker.svg)](https://badge.fury.io/bo/bootstrap-duration-picker)
 
-##Installation
+## Installation
 
 Using Bower:
 
@@ -18,16 +18,16 @@ Using NPM:
 
 Or simply copy `jquery-duration-picker.css` and `jquery-duration-picker.js` files to your project.
 
-##Example
+## Example
 
 ![Bootstrap-Duration-Picker](demo.png)
 
-##Dependencies
+## Dependencies
 
 - jQuery 1.*
 - Bootstrap 3.* (used for popovers)
 
-##Usage
+## Usage
 
 ```html
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
@@ -66,6 +66,6 @@ $('.duration-picker').durationPicker({
 });
 ```
 
-##License
+## License
 
 Please see [LICENSE](LICENSE) for licensing details.
