@@ -22,9 +22,11 @@
                 <form>
                     <div class="form-group">
                         <label>Duration</label>
-                        <input type="text" class="form-control" id="duration">
+                        <input type="text" class="form-control" id="duration" value="93780">
                     </div>
                 </form>
+
+                <p>Seconds: <span id="duration-label"></span></p>
             </div>
 
             <div class="col-md-offset-3 col-md-6">
@@ -34,27 +36,39 @@
                         <input type="text" class="form-control" id="duration2">
                     </div>
                 </form>
+
+                <p>Seconds: <span id="duration-label2"></span></p>
+            </div>
+
+            <div class="col-md-offset-3 col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label>Duration disabled</label>
+                        <input disabled type="text" class="form-control" id="duration3" value="86400">
+                    </div>
+                </form>
+
+                <p>Seconds: <span id="duration-label3"></span></p>
             </div>
         </div>
     </div>
 
     <script>
         $(function () {
-            $('#duration').durationPicker();
+            $('#duration').durationPicker({
+                onChanged: function (newVal) {
+                    $('#duration-label').text(newVal);
+                }
+            });
             $('#duration2').durationPicker({
                 showSeconds: true,
-                formatter: function (num) {
-                    if (!+num)
-                        return num;
-                    var digits = String(+num).split(""),
-                        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-                            "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-                            "","I","II","III","IV","V","VI","VII","VIII","IX"],
-                        roman = "",
-                        i = 3;
-                    while (i--)
-                        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-                    return Array(+digits.join("") + 1).join("M") + roman;
+                onChanged: function (newVal) {
+                    $('#duration-label2').text(newVal);
+                }
+            });
+            $('#duration3').durationPicker({
+                onChanged: function (newVal) {
+                    $('#duration-label3').text(newVal);
                 }
             });
         });

@@ -17,7 +17,6 @@
 
         const defaults = {
             lang: 'en',
-            formatter: s => s,
             showSeconds: false
         };
         const settings = $.extend( {}, defaults, options );
@@ -29,19 +28,44 @@
             if (mainInput.data('bdp') === '1')
                 return;
 
-            function buildDisplayBlock(id, hidden) {
-                return `<div class="bdp-block ${hidden ? 'hidden' : ''}">
-                            <span id="bdp-${id}"></span><br>
-                            <span class="bdp-label" id="bdp-${id}-label"></span>
-                        </div>`;
+            const inputs = [],
+                labels = [],
+                disabled = mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled';
+
+            function buildDisplayBlock(id, hidden, max) {
+                const input = $('<input>', {
+                    class: 'form-control input-sm',
+                    type: 'number',
+                    min: 0,
+                    value: 0,
+                    disabled: disabled
+                }).change(durationPickerChanged);
+                if (max) {
+                    input.attr('max', max);
+                }
+                inputs[id] = input;
+
+                const label = $('<div>', {
+                    id: `bdp-${id}-label`,
+                    text: langs[settings.lang][id]
+                });
+                labels[id] = label;
+
+                return $('<div>', {
+                    class: `bdp-block ${hidden ? 'hidden' : ''}`,
+                    html: [ input,label ]
+                });
             }
 
-            const mainInputReplacer = $('<div class="bdp-input">' +
-                buildDisplayBlock('days') +
-                buildDisplayBlock('hours') +
-                buildDisplayBlock('minutes') +
-                buildDisplayBlock('seconds', !settings.showSeconds) +
-            '</div>');
+            const mainInputReplacer = $('<div>', {
+                class: 'bdp-input',
+                html: [
+                    buildDisplayBlock('days', false),
+                    buildDisplayBlock('hours', false, 23),
+                    buildDisplayBlock('minutes', false, 59),
+                    buildDisplayBlock('seconds', !settings.showSeconds, 59)
+                ]
+            });
 
             mainInput.after(mainInputReplacer).hide().data('bdp', '1');
 
@@ -50,53 +74,36 @@
                 minutes = 0,
                 seconds = 0;
 
-            const inputs = [];
 
-            let disabled = false;
-            if (mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled') {
-                disabled = true;
-                mainInputReplacer.addClass('disabled');
+            function updateWordLabel(value, label) {
+                const text = value === 1 ? label.substring(0, label.length - 1) : label;
+                labels[label].text(langs[settings.lang][text]);
             }
 
-            function updateMainInput() {
+            function updateUI() {
                 const total = seconds + minutes * 60 + hours * 60 * 60 + days * 24 * 60 * 60;
                 mainInput.val(total);
                 mainInput.change();
-            }
 
-            function updateWordLabel(selector, value, label) {
-                const text = value === 1 ? label : `${label}s`;
-                mainInputReplacer.find(selector).text(langs[settings.lang][text]);
-            }
+                updateWordLabel(days, 'days');
+                updateWordLabel(hours, 'hours');
+                updateWordLabel(minutes, 'minutes');
+                updateWordLabel(seconds, 'seconds');
 
-            function updateValueLabel(selector, value) {
-                mainInputReplacer.find(selector).text(settings.formatter(value));
-            }
-
-            function updateMainInputReplacer() {
-                updateValueLabel('#bdp-days', days);
-                updateValueLabel('#bdp-hours', hours);
-                updateValueLabel('#bdp-minutes', minutes);
-                updateValueLabel('#bdp-seconds', seconds);
-
-                updateWordLabel('#bdp-days-label', days, 'day');
-                updateWordLabel('#bdp-hours-label', hours, 'hour');
-                updateWordLabel('#bdp-minutes-label', minutes, 'minute');
-                updateWordLabel('#bdp-seconds-label', seconds, 'second');
-            }
-
-            function updatePicker() {
-                if (disabled)
-                    return;
                 inputs['days'].val(days);
                 inputs['hours'].val(hours);
                 inputs['minutes'].val(minutes);
                 inputs['seconds'].val(seconds);
+
+                if (typeof settings.onChanged === "function") {
+                    settings.onChanged(mainInput.val());
+                }
             }
 
             function init() {
                 if (mainInput.val() === '')
                     mainInput.val(0);
+
                 let total = parseInt(mainInput.val(), 10);
                 seconds = total % 60;
                 total = Math.floor(total/60);
@@ -104,8 +111,8 @@
                 total = Math.floor(total/60);
                 hours = total % 24;
                 days = Math.floor(total/24);
-                updateMainInputReplacer();
-                updatePicker();
+
+                updateUI();
             }
 
             function durationPickerChanged() {
@@ -113,40 +120,11 @@
                 hours =   parseInt(inputs['hours'].val(), 10)   || 0;
                 minutes = parseInt(inputs['minutes'].val(), 10) || 0;
                 seconds = parseInt(inputs['seconds'].val(), 10) || 0;
-                updateMainInput();
-                updateMainInputReplacer();
+                updateUI();
+
             }
 
-            function buildNumericInput(label, hidden, max) {
-                const input = $('<input class="form-control input-sm" type="number" min="0" value="0">')
-                    .change(durationPickerChanged);
-                if (max) {
-                    input.attr('max', max);
-                }
-                inputs[label] = input;
-                const ctrl = $('<div> ' + langs[settings.lang][label] + '</div>');
-                if (hidden) {
-                    ctrl.addClass('hidden');
-                }
-                return ctrl.prepend(input);
-            }
-
-            if (!disabled) {
-                const picker = $('<div class="bdp-popover"></div>');
-                buildNumericInput('days', false).appendTo(picker);
-                buildNumericInput('hours', false, 23).appendTo(picker);
-                buildNumericInput('minutes', false, 59).appendTo(picker);
-                buildNumericInput('seconds', !settings.showSeconds, 59).appendTo(picker);
-
-                mainInputReplacer.popover({
-                    placement: 'bottom',
-                    trigger: 'click',
-                    html: true,
-                    content: picker
-                });
-            }
             init();
-            mainInput.change(init);
         });
 
     };
