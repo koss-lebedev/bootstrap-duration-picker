@@ -16,7 +16,7 @@ Using NPM:
 
     npm install bootstrap-duration-picker
 
-Or simply copy `jquery-duration-picker.css` and `jquery-duration-picker.js` files to your project.
+Or simply copy `bootstrap-duration-picker.css` and `bootstrap-duration-picker.js` files to your project.
 
 ## Example
 
