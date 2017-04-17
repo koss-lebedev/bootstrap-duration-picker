@@ -26,6 +26,7 @@
     const defaults = {
       lang: 'en',
       showSeconds: false,
+      showDays: true,
     };
     const settings = $.extend({}, defaults, options);
 
@@ -67,8 +68,8 @@
       const mainInputReplacer = $('<div>', {
         class: 'bdp-input',
         html: [
-          buildDisplayBlock('days', false),
-          buildDisplayBlock('hours', false, 23),
+          buildDisplayBlock('days', !settings.showDays),
+          buildDisplayBlock('hours', false, (settings.showDays ? 23 : 99999)),
           buildDisplayBlock('minutes', false, 59),
           buildDisplayBlock('seconds', !settings.showSeconds, 59),
         ],
