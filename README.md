@@ -40,6 +40,9 @@ $('.duration-picker').durationPicker({
     // defines whether to show seconds or not
     showSeconds: false,
 
+    // defines whether to show days or not
+    showDays: true,
+
     // callback function that is passed value in seconds every time duration is changed
     onChanged: function (value) {
         console.log(value);
