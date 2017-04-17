@@ -10,6 +10,16 @@
       minutes: 'minutes',
       seconds: 'seconds',
     },
+    fr: {
+      day: 'jour',
+      hour: 'heure',
+      minute: 'minute',
+      second: 'seconde',
+      days: 'jours',
+      hours: 'heures',
+      minutes: 'minutes',
+      seconds: 'secondes',
+    },
   };
 
   $.fn.durationPicker = function(options) {
