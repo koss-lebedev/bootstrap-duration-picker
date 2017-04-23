@@ -50,6 +50,17 @@
 
                 <p>Seconds: <span id="duration-label3"></span></p>
             </div>
+
+            <div class="col-md-offset-3 col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label>Custom translations</label>
+                        <input type="text" class="form-control" id="duration4" value="86400">
+                    </div>
+                </form>
+
+                <p>Seconds: <span id="duration-label4"></span></p>
+            </div>
         </div>
     </div>
 
@@ -69,6 +80,21 @@
             $('#duration3').durationPicker({
                 onChanged: function (newVal) {
                     $('#duration-label3').text(newVal);
+                }
+            });
+            $('#duration4').durationPicker({
+                lang: {
+                    day: 'dia',
+                    hour: 'hora',
+                    minute: 'minuto',
+                    second: 'segundo',
+                    days: 'dias',
+                    hours: 'horas',
+                    minutes: 'minutos',
+                    seconds: 'segundos',
+                },
+                onChanged: function (newVal) {
+                    $('#duration-label4').text(newVal);
                 }
             });
         });

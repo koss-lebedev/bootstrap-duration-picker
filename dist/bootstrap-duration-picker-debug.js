@@ -1,6 +1,6 @@
 'use strict';
 
-(function($) {
+(function ($) {
   var langs = {
     en: {
       day: 'day',
@@ -10,26 +10,44 @@
       days: 'days',
       hours: 'hours',
       minutes: 'minutes',
-      seconds: 'seconds',
+      seconds: 'seconds'
     },
+    fr: {
+      day: 'jour',
+      hour: 'heure',
+      minute: 'minute',
+      second: 'seconde',
+      days: 'jours',
+      hours: 'heures',
+      minutes: 'minutes',
+      seconds: 'secondes'
+    }
   };
 
-  $.fn.durationPicker = function(options) {
+  $.fn.durationPicker = function (options) {
     var defaults = {
       lang: 'en',
       showSeconds: false,
+      showDays: true
     };
     var settings = $.extend({}, defaults, options);
 
-    this.each(function(i, mainInput) {
+    this.each(function (i, mainInput) {
       mainInput = $(mainInput);
 
       if (mainInput.data('bdp') === '1') return;
 
       var inputs = [],
-        labels = [],
-        disabled = mainInput.hasClass('disabled') ||
-          mainInput.attr('disabled') === 'disabled';
+          labels = [],
+          disabled = mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled';
+
+      function translate(key) {
+        if (typeof settings.lang === 'string') {
+          return langs[settings.lang][key];
+        } else {
+          return settings.lang[key];
+        }
+      }
 
       function buildDisplayBlock(id, hidden, max) {
         var input = $('<input>', {
@@ -37,7 +55,7 @@
           type: 'number',
           min: 0,
           value: 0,
-          disabled: disabled,
+          disabled: disabled
         }).change(durationPickerChanged);
         if (max) {
           input.attr('max', max);
@@ -46,40 +64,35 @@
 
         var label = $('<div>', {
           id: 'bdp-' + id + '-label',
-          text: langs[settings.lang][id],
+          text: translate(id)
         });
         labels[id] = label;
 
         return $('<div>', {
           class: 'bdp-block ' + (hidden ? 'hidden' : ''),
-          html: [input, label],
+          html: [input, label]
         });
       }
 
       var mainInputReplacer = $('<div>', {
         class: 'bdp-input',
-        html: [
-          buildDisplayBlock('days', false),
-          buildDisplayBlock('hours', false, 23),
-          buildDisplayBlock('minutes', false, 59),
-          buildDisplayBlock('seconds', !settings.showSeconds, 59),
-        ],
+        html: [buildDisplayBlock('days', !settings.showDays), buildDisplayBlock('hours', false, settings.showDays ? 23 : 99999), buildDisplayBlock('minutes', false, 59), buildDisplayBlock('seconds', !settings.showSeconds, 59)]
       });
 
       mainInput.after(mainInputReplacer).hide().data('bdp', '1');
 
-      var days = 0, hours = 0, minutes = 0, seconds = 0;
+      var days = 0,
+          hours = 0,
+          minutes = 0,
+          seconds = 0;
 
       function updateWordLabel(value, label) {
         var text = value === 1 ? label.substring(0, label.length - 1) : label;
-        labels[label].text(langs[settings.lang][text]);
+        labels[label].text(translate(text));
       }
 
       function updateUI() {
-        var total = seconds +
-          minutes * 60 +
-          hours * 60 * 60 +
-          days * 24 * 60 * 60;
+        var total = seconds + minutes * 60 + hours * 60 * 60 + days * 24 * 60 * 60;
         mainInput.val(total);
         mainInput.change();
 
@@ -113,10 +126,10 @@
       }
 
       function durationPickerChanged() {
-        days = parseInt(inputs['days'].val(), 10) || 0;
-        hours = parseInt(inputs['hours'].val(), 10) || 0;
-        minutes = parseInt(inputs['minutes'].val(), 10) || 0;
-        seconds = parseInt(inputs['seconds'].val(), 10) || 0;
+        days = parseInt(inputs.days.val(), 10) || 0;
+        hours = parseInt(inputs.hours.val(), 10) || 0;
+        minutes = parseInt(inputs.minutes.val(), 10) || 0;
+        seconds = parseInt(inputs.seconds.val(), 10) || 0;
         updateUI();
       }
 

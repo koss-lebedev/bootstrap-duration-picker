@@ -40,6 +40,14 @@
         disabled = mainInput.hasClass('disabled') ||
           mainInput.attr('disabled') === 'disabled';
 
+      function translate(key) {
+        if (typeof settings.lang === 'string') {
+          return langs[settings.lang][key];
+        } else {
+          return settings.lang[key];
+        }
+      }
+
       function buildDisplayBlock(id, hidden, max) {
         const input = $('<input>', {
           class: 'form-control input-sm',
@@ -55,7 +63,7 @@
 
         const label = $('<div>', {
           id: `bdp-${id}-label`,
-          text: langs[settings.lang][id],
+          text: translate(id),
         });
         labels[id] = label;
 
@@ -69,7 +77,7 @@
         class: 'bdp-input',
         html: [
           buildDisplayBlock('days', !settings.showDays),
-          buildDisplayBlock('hours', false, (settings.showDays ? 23 : 99999)),
+          buildDisplayBlock('hours', false, settings.showDays ? 23 : 99999),
           buildDisplayBlock('minutes', false, 59),
           buildDisplayBlock('seconds', !settings.showSeconds, 59),
         ],
@@ -81,7 +89,7 @@
 
       function updateWordLabel(value, label) {
         const text = value === 1 ? label.substring(0, label.length - 1) : label;
-        labels[label].text(langs[settings.lang][text]);
+        labels[label].text(translate(text));
       }
 
       function updateUI() {
@@ -122,10 +130,10 @@
       }
 
       function durationPickerChanged() {
-        days = parseInt(inputs['days'].val(), 10) || 0;
-        hours = parseInt(inputs['hours'].val(), 10) || 0;
-        minutes = parseInt(inputs['minutes'].val(), 10) || 0;
-        seconds = parseInt(inputs['seconds'].val(), 10) || 0;
+        days = parseInt(inputs.days.val(), 10) || 0;
+        hours = parseInt(inputs.hours.val(), 10) || 0;
+        minutes = parseInt(inputs.minutes.val(), 10) || 0;
+        seconds = parseInt(inputs.seconds.val(), 10) || 0;
         updateUI();
       }
 
