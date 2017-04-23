@@ -35,6 +35,19 @@ $('.duration-picker').durationPicker();
 // or
 
 $('.duration-picker').durationPicker({
+    
+    // you can set it to a string with a known language (en or fr),
+    // or pass an object with your own translations:
+    //  {
+    //      day: 'dia',
+    //      hour: 'hora',
+    //      minute: 'minuto',
+    //      second: 'segundo',
+    //      days: 'dias',
+    //      hours: 'horas',
+    //      minutes: 'minutos',
+    //      seconds: 'segundos'
+    //  } 
     lang: 'en',
 
     // defines whether to show seconds or not
