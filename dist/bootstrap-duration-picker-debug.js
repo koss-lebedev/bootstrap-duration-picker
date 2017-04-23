@@ -44,9 +44,8 @@
       function translate(key) {
         if (typeof settings.lang === 'string') {
           return langs[settings.lang][key];
-        } else {
-          return settings.lang[key];
         }
+        return settings.lang[key];
       }
 
       function buildDisplayBlock(id, hidden, max) {
@@ -101,10 +100,10 @@
         updateWordLabel(minutes, 'minutes');
         updateWordLabel(seconds, 'seconds');
 
-        inputs['days'].val(days);
-        inputs['hours'].val(hours);
-        inputs['minutes'].val(minutes);
-        inputs['seconds'].val(seconds);
+        inputs.days.val(days);
+        inputs.hours.val(hours);
+        inputs.minutes.val(minutes);
+        inputs.seconds.val(seconds);
 
         if (typeof settings.onChanged === 'function') {
           settings.onChanged(mainInput.val());
@@ -119,8 +118,14 @@
         total = Math.floor(total / 60);
         minutes = total % 60;
         total = Math.floor(total / 60);
-        hours = total % 24;
-        days = Math.floor(total / 24);
+
+        if (settings.showDays) {
+          hours = total % 24;
+          days = Math.floor(total / 24);
+        } else {
+          hours = total;
+          days = 0;
+        }
 
         updateUI();
       }
