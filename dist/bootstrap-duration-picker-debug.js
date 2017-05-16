@@ -1,32 +1,19 @@
 'use strict';
 
 (function ($) {
-  var langs = {
-    en: {
-      day: 'day',
-      hour: 'hour',
-      minute: 'minute',
-      second: 'second',
-      days: 'days',
-      hours: 'hours',
-      minutes: 'minutes',
-      seconds: 'seconds'
-    },
-    fr: {
-      day: 'jour',
-      hour: 'heure',
-      minute: 'minute',
-      second: 'seconde',
-      days: 'jours',
-      hours: 'heures',
-      minutes: 'minutes',
-      seconds: 'secondes'
-    }
-  };
 
   $.fn.durationPicker = function (options) {
     var defaults = {
-      lang: 'en',
+      translations: {
+        day: 'day',
+        hour: 'hour',
+        minute: 'minute',
+        second: 'second',
+        days: 'days',
+        hours: 'hours',
+        minutes: 'minutes',
+        seconds: 'seconds'
+      },
       showSeconds: false,
       showDays: true
     };
@@ -42,10 +29,7 @@
           disabled = mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled';
 
       function translate(key) {
-        if (typeof settings.lang === 'string') {
-          return langs[settings.lang][key];
-        }
-        return settings.lang[key];
+        return settings.translations[key];
       }
 
       function buildDisplayBlock(id, hidden, max) {
