@@ -1,31 +1,31 @@
-(function($) {
-
-  $.fn.durationPicker = function(options) {
+(function iife($) {
+  // eslint-disable-next-line no-param-reassign
+  $.fn.durationPicker = function durationPicker(options) {
     const defaults = {
       translations: {
-          day: 'day',
-          hour: 'hour',
-          minute: 'minute',
-          second: 'second',
-          days: 'days',
-          hours: 'hours',
-          minutes: 'minutes',
-          seconds: 'seconds',
+        day: 'day',
+        hour: 'hour',
+        minute: 'minute',
+        second: 'second',
+        days: 'days',
+        hours: 'hours',
+        minutes: 'minutes',
+        seconds: 'seconds',
       },
       showSeconds: false,
       showDays: true,
     };
     const settings = $.extend({}, defaults, options);
 
-    this.each((i, mainInput) => {
-      mainInput = $(mainInput);
+    this.each((i, mainElement) => {
+      const mainInput = $(mainElement);
 
       if (mainInput.data('bdp') === '1') return;
 
-      const inputs = [],
-        labels = [],
-        disabled = mainInput.hasClass('disabled') ||
-          mainInput.attr('disabled') === 'disabled';
+      const inputs = [];
+      const labels = [];
+      const disabled = mainInput.hasClass('disabled') ||
+        mainInput.attr('disabled') === 'disabled';
 
       function translate(key) {
         return settings.translations[key];
@@ -37,8 +37,9 @@
           type: 'number',
           min: 0,
           value: 0,
-          disabled: disabled,
+          disabled,
         }).change(durationPickerChanged);
+
         if (max) {
           input.attr('max', max);
         }
@@ -68,7 +69,10 @@
 
       mainInput.after(mainInputReplacer).hide().data('bdp', '1');
 
-      let days = 0, hours = 0, minutes = 0, seconds = 0;
+      let days = 0;
+      let hours = 0;
+      let minutes = 0;
+      let seconds = 0;
 
       function updateWordLabel(value, label) {
         const text = value === 1 ? label.substring(0, label.length - 1) : label;
@@ -129,4 +133,4 @@
       init();
     });
   };
-})(jQuery);
+}(jQuery)); // eslint-disable-line no-undef

@@ -1,8 +1,8 @@
 'use strict';
 
-(function ($) {
-
-  $.fn.durationPicker = function (options) {
+(function iife($) {
+  // eslint-disable-next-line no-param-reassign
+  $.fn.durationPicker = function durationPicker(options) {
     var defaults = {
       translations: {
         day: 'day',
@@ -19,14 +19,14 @@
     };
     var settings = $.extend({}, defaults, options);
 
-    this.each(function (i, mainInput) {
-      mainInput = $(mainInput);
+    this.each(function (i, mainElement) {
+      var mainInput = $(mainElement);
 
       if (mainInput.data('bdp') === '1') return;
 
-      var inputs = [],
-          labels = [],
-          disabled = mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled';
+      var inputs = [];
+      var labels = [];
+      var disabled = mainInput.hasClass('disabled') || mainInput.attr('disabled') === 'disabled';
 
       function translate(key) {
         return settings.translations[key];
@@ -40,6 +40,7 @@
           value: 0,
           disabled: disabled
         }).change(durationPickerChanged);
+
         if (max) {
           input.attr('max', max);
         }
@@ -64,10 +65,10 @@
 
       mainInput.after(mainInputReplacer).hide().data('bdp', '1');
 
-      var days = 0,
-          hours = 0,
-          minutes = 0,
-          seconds = 0;
+      var days = 0;
+      var hours = 0;
+      var minutes = 0;
+      var seconds = 0;
 
       function updateWordLabel(value, label) {
         var text = value === 1 ? label.substring(0, label.length - 1) : label;
@@ -125,4 +126,4 @@
       init();
     });
   };
-})(jQuery);
+})(jQuery); // eslint-disable-line no-undef
