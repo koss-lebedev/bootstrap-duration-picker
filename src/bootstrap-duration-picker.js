@@ -1,6 +1,7 @@
 (function iife($) {
-  // eslint-disable-next-line no-param-reassign
-  $.fn.durationPicker = function durationPicker(options) {
+
+  $.durationPicker = function(mainElement, options) {
+
     const defaults = {
       translations: {
         day: 'day',
@@ -15,122 +16,147 @@
       showSeconds: false,
       showDays: true,
     };
-    const settings = $.extend({}, defaults, options);
 
-    this.each((i, mainElement) => {
-      const mainInput = $(mainElement);
+    const plugin = this;
 
-      if (mainInput.data('bdp') === '1') return;
+    plugin.settings = {};
 
-      const inputs = [];
-      const labels = [];
-      const disabled = mainInput.hasClass('disabled') ||
-        mainInput.attr('disabled') === 'disabled';
+    const mainInput = $(mainElement);
 
-      function translate(key) {
-        return settings.translations[key];
-      }
+    plugin.init = function() {
 
-      function buildDisplayBlock(id, hidden, max) {
-        const input = $('<input>', {
-          class: 'form-control input-sm',
-          type: 'number',
-          min: 0,
-          value: 0,
-          disabled,
-        }).change(durationPickerChanged);
-
-        if (max) {
-          input.attr('max', max);
-        }
-        inputs[id] = input;
-
-        const label = $('<div>', {
-          id: `bdp-${id}-label`,
-          text: translate(id),
-        });
-        labels[id] = label;
-
-        return $('<div>', {
-          class: `bdp-block ${hidden ? 'hidden' : ''}`,
-          html: [input, label],
-        });
-      }
+      plugin.settings = $.extend({}, defaults, options);
 
       const mainInputReplacer = $('<div>', {
         class: 'bdp-input',
         html: [
-          buildDisplayBlock('days', !settings.showDays),
-          buildDisplayBlock('hours', false, settings.showDays ? 23 : 99999),
+          buildDisplayBlock('days', !plugin.settings.showDays),
+          buildDisplayBlock('hours', false, plugin.settings.showDays ? 23 : 99999),
           buildDisplayBlock('minutes', false, 59),
-          buildDisplayBlock('seconds', !settings.showSeconds, 59),
+          buildDisplayBlock('seconds', !plugin.settings.showSeconds, 59),
         ],
       });
 
-      mainInput.after(mainInputReplacer).hide().data('bdp', '1');
+      mainInput.after(mainInputReplacer).hide();
 
-      let days = 0;
-      let hours = 0;
-      let minutes = 0;
-      let seconds = 0;
+      if (mainInput.val() === '') mainInput.val(0);
+      plugin.setValue(mainInput.val());
+    };
 
-      function updateWordLabel(value, label) {
-        const text = value === 1 ? label.substring(0, label.length - 1) : label;
-        labels[label].text(translate(text));
+    const inputs = [];
+    const labels = [];
+    const disabled = mainInput.hasClass('disabled') ||
+      mainInput.attr('disabled') === 'disabled';
+
+    let days = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    //
+    // private methods
+    //
+    function translate(key) {
+      return plugin.settings.translations[key];
+    }
+
+    function updateWordLabel(value, label) {
+      const text = value === 1 ? label.substring(0, label.length - 1) : label;
+      labels[label].text(translate(text));
+    }
+
+    function updateUI() {
+      const total = seconds +
+        minutes * 60 +
+        hours * 60 * 60 +
+        days * 24 * 60 * 60;
+      mainInput.val(total);
+      mainInput.change();
+
+      updateWordLabel(days, 'days');
+      updateWordLabel(hours, 'hours');
+      updateWordLabel(minutes, 'minutes');
+      updateWordLabel(seconds, 'seconds');
+
+      inputs.days.val(days);
+      inputs.hours.val(hours);
+      inputs.minutes.val(minutes);
+      inputs.seconds.val(seconds);
+
+      if (typeof plugin.settings.onChanged === 'function') {
+        plugin.settings.onChanged(mainInput.val());
+      }
+    }
+
+    function durationPickerChanged() {
+      days = parseInt(inputs.days.val(), 10) || 0;
+      hours = parseInt(inputs.hours.val(), 10) || 0;
+      minutes = parseInt(inputs.minutes.val(), 10) || 0;
+      seconds = parseInt(inputs.seconds.val(), 10) || 0;
+      updateUI();
+    }
+
+    function buildDisplayBlock(id, hidden, max) {
+      const input = $('<input>', {
+        class: 'form-control input-sm',
+        type: 'number',
+        min: 0,
+        value: 0,
+        disabled,
+      }).change(durationPickerChanged);
+
+      if (max) {
+        input.attr('max', max);
+      }
+      inputs[id] = input;
+
+      const label = $('<div>', {
+        id: `bdp-${id}-label`,
+        text: translate(id),
+      });
+      labels[id] = label;
+
+      return $('<div>', {
+        class: `bdp-block ${hidden ? 'hidden' : ''}`,
+        html: [input, label],
+      });
+    }
+
+    //
+    // public methods
+    //
+    plugin.setValue = function(value) {
+      console.log('init', value);
+      mainInput.val(value);
+
+      let total = parseInt(value, 10);
+      seconds = total % 60;
+      total = Math.floor(total / 60);
+      minutes = total % 60;
+      total = Math.floor(total / 60);
+
+      if (plugin.settings.showDays) {
+        hours = total % 24;
+        days = Math.floor(total / 24);
+      } else {
+        hours = total;
+        days = 0;
       }
 
-      function updateUI() {
-        const total = seconds +
-          minutes * 60 +
-          hours * 60 * 60 +
-          days * 24 * 60 * 60;
-        mainInput.val(total);
-        mainInput.change();
+      updateUI();
+    };
 
-        updateWordLabel(days, 'days');
-        updateWordLabel(hours, 'hours');
-        updateWordLabel(minutes, 'minutes');
-        updateWordLabel(seconds, 'seconds');
+    plugin.init();
+  };
 
-        inputs.days.val(days);
-        inputs.hours.val(hours);
-        inputs.minutes.val(minutes);
-        inputs.seconds.val(seconds);
-
-        if (typeof settings.onChanged === 'function') {
-          settings.onChanged(mainInput.val());
-        }
+  // eslint-disable-next-line no-param-reassign
+  $.fn.durationPicker = function durationPicker(options) {
+    return this.each(function() {
+      if (undefined == $(this).data('durationPicker')) {
+        const plugin = new $.durationPicker(this, options);
+        $(this).data('durationPicker', plugin);
       }
-
-      function init() {
-        if (mainInput.val() === '') mainInput.val(0);
-
-        let total = parseInt(mainInput.val(), 10);
-        seconds = total % 60;
-        total = Math.floor(total / 60);
-        minutes = total % 60;
-        total = Math.floor(total / 60);
-
-        if (settings.showDays) {
-          hours = total % 24;
-          days = Math.floor(total / 24);
-        } else {
-          hours = total;
-          days = 0;
-        }
-
-        updateUI();
-      }
-
-      function durationPickerChanged() {
-        days = parseInt(inputs.days.val(), 10) || 0;
-        hours = parseInt(inputs.hours.val(), 10) || 0;
-        minutes = parseInt(inputs.minutes.val(), 10) || 0;
-        seconds = parseInt(inputs.seconds.val(), 10) || 0;
-        updateUI();
-      }
-
-      init();
     });
   };
-}(jQuery)); // eslint-disable-line no-undef
+
+})(jQuery); // eslint-disable-line no-undef
