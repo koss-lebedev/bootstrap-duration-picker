@@ -61,6 +61,21 @@ $('.duration-picker').durationPicker({
 });
 ```
 
+## Public methods
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Example</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><b>setValue</b></td>
+    <td><code>$('#selector').data('durationPicker').setValue(0);</code></td>
+    <td>Allow to reinitialize duration picker value after it's been created. Accepts new number of seconds</td>
+  </tr>  
+</table>
+
 ## License
 
 Please see [LICENSE](LICENSE) for licensing details.
