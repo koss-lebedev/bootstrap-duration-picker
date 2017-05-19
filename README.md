@@ -72,7 +72,7 @@ $('.duration-picker').durationPicker({
   <tr>
     <td><b>setValue</b></td>
     <td><code>$('#selector').data('durationPicker').setValue(0);</code></td>
-    <td>Allow to reinitialize duration picker value after it's been created. Accepts new number of seconds</td>
+    <td>Allows to reinitialize duration picker value after it's been created. Accepts new number of seconds</td>
   </tr>  
 </table>
 
