@@ -1,6 +1,6 @@
 (function iife($) {
 
-  $.durationPicker = function(mainElement, options) {
+  $.DurationPicker = function DurationPicker(mainElement, options) {
 
     const defaults = {
       translations: {
@@ -23,8 +23,7 @@
 
     const mainInput = $(mainElement);
 
-    plugin.init = function() {
-
+    plugin.init = function init() {
       plugin.settings = $.extend({}, defaults, options);
 
       const mainInputReplacer = $('<div>', {
@@ -125,8 +124,7 @@
     //
     // public methods
     //
-    plugin.setValue = function(value) {
-      console.log('init', value);
+    plugin.setValue = function setValue(value) {
       mainInput.val(value);
 
       let total = parseInt(value, 10);
@@ -152,8 +150,8 @@
   // eslint-disable-next-line no-param-reassign
   $.fn.durationPicker = function durationPicker(options) {
     return this.each(function() {
-      if (undefined == $(this).data('durationPicker')) {
-        const plugin = new $.durationPicker(this, options);
+      if (undefined === $(this).data('durationPicker')) {
+        const plugin = new $.DurationPicker(this, options);
         $(this).data('durationPicker', plugin);
       }
     });
