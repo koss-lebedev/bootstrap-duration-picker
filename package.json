@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-duration-picker",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Bootstrap duration picker",
   "main": "index.js",
   "scripts": {
