@@ -127,8 +127,9 @@
             }
           });
           $('#duration6').durationPicker({
-            onChanged: function (newVal) {
+            onChanged: function (newVal, isInitializing) {
               $('#duration-label6').text(newVal);
+              console.log('Initializing?', isInitializing);
             }
           });
 

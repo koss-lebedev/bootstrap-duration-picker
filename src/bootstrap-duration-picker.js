@@ -39,7 +39,7 @@
       mainInput.after(mainInputReplacer).hide();
 
       if (mainInput.val() === '') mainInput.val(0);
-      plugin.setValue(mainInput.val());
+      setValue(mainInput.val(), true);
     };
 
     const inputs = [];
@@ -64,7 +64,7 @@
       labels[label].text(translate(text));
     }
 
-    function updateUI() {
+    function updateUI(isInitializing = false) {
       const total = seconds +
         minutes * 60 +
         hours * 60 * 60 +
@@ -83,7 +83,7 @@
       inputs.seconds.val(seconds);
 
       if (typeof plugin.settings.onChanged === 'function') {
-        plugin.settings.onChanged(mainInput.val());
+        plugin.settings.onChanged(mainInput.val(), isInitializing);
       }
     }
 
@@ -121,10 +121,7 @@
       });
     }
 
-    //
-    // public methods
-    //
-    plugin.setValue = function setValue(value) {
+    function setValue(value, isInitializing) {
       mainInput.val(value);
 
       let total = parseInt(value, 10);
@@ -141,7 +138,14 @@
         days = 0;
       }
 
-      updateUI();
+      updateUI(isInitializing);
+    }
+
+    //
+    // public methods
+    //
+    plugin.setValue = function(value) {
+      setValue(value, true);
     };
 
     plugin.init();

@@ -54,9 +54,14 @@ $('.duration-picker').durationPicker({
     // defines whether to show days or not
     showDays: true,
 
-    // callback function that is passed value in seconds every time duration is changed
-    onChanged: function (value) {
-        console.log(value);
+    // callback function that triggers every time duration is changed 
+    //   value - duration in seconds
+    //   isInitializing - bool value
+    onChanged: function (value, isInitializing) {
+        
+        // isInitializing will be `true` when the plugin is initialized for the
+        // first time or when it's re-initialized by calling `setValue` method
+        console.log(value, isInitializing);
     }
 });
 ```
