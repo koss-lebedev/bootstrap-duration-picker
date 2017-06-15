@@ -143,6 +143,11 @@
       setValue(value, true);
     };
 
+    plugin.destroy = function () {
+      mainInput.next('.bdp-input').remove();
+      mainInput.data('durationPicker', null).show();
+    };
+
     plugin.init();
   };
 

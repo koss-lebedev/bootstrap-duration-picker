@@ -79,6 +79,11 @@ $('.duration-picker').durationPicker({
     <td><code>$('#selector').data('durationPicker').setValue(0);</code></td>
     <td>Allows to reinitialize duration picker value after it's been created. Accepts new number of seconds</td>
   </tr>  
+  <tr>
+      <td><b>destroy</b></td>
+      <td><code>$('#selector').data('durationPicker').destroy();</code></td>
+      <td>Destroys the plugin, reverting any DOM changes made by the plugin</td>
+    </tr> 
 </table>
 
 ## License

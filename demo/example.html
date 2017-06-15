@@ -1,143 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Bootstrap duration picker demo</title>
+  <meta charset="UTF-8">
+  <title>Bootstrap duration picker demo</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="../dist/bootstrap-duration-picker.css">
-    <script src="../dist/bootstrap-duration-picker-debug.js"></script>
+  <link rel="stylesheet" href="../dist/bootstrap-duration-picker.css">
+  <script src="../dist/bootstrap-duration-picker-debug.js"></script>
 
-    <style>
-        .container { padding-top: 80px; }
-    </style>
+  <style>
+    .container { padding-top: 80px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <form>
-              <div class="form-group">
-                <label>Duration</label>
-                <input type="text" class="form-control" id="duration" value="93780">
-              </div>
-            </form>
-
-            <p>Seconds: <span id="duration-label"></span></p>
-          </div>
-
-          <div class="col-md-offset-3 col-md-6">
-            <form>
-              <div class="form-group">
-                <label>Duration with seconds</label>
-                <input type="text" class="form-control" id="duration2">
-              </div>
-            </form>
-
-            <p>Seconds: <span id="duration-label2"></span></p>
-          </div>
-
-          <div class="col-md-offset-3 col-md-6">
-            <form>
-              <div class="form-group">
-                <label>Duration disabled</label>
-                <input disabled type="text" class="form-control" id="duration3" value="86400">
-              </div>
-            </form>
-
-            <p>Seconds: <span id="duration-label3"></span></p>
-          </div>
-
-          <div class="col-md-offset-3 col-md-6">
-            <form>
-              <div class="form-group">
-                <label>Custom translations</label>
-                <input type="text" class="form-control" id="duration4" value="86400">
-              </div>
-            </form>
-
-            <p>Seconds: <span id="duration-label4"></span></p>
-          </div>
-
-          <div class="col-md-offset-3 col-md-6">
-            <form>
-              <div class="form-group">
-                <label>Duration without days</label>
-                <input type="text" class="form-control" id="duration5" value="86400">
-              </div>
-            </form>
-
-            <p>Seconds: <span id="duration-label5"></span></p>
-          </div>
-
-          <div class="col-md-offset-3 col-md-6">
-            <form>
-              <div class="form-group">
-                <label>Reset duration</label>
-                <input type="text" class="form-control" id="duration6" value="86400">
-              </div>
-            </form>
-
-            <p>Seconds: <span id="duration-label6"></span></p>
-            <p><button id="reset-picker" class="btn btn-default">Reset</button></p>
-          </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <form>
+        <div class="form-group">
+          <label>Duration</label>
+          <input type="text" class="form-control" id="duration" value="93780">
         </div>
+      </form>
+
+      <p>Seconds: <span id="duration-label"></span></p>
     </div>
 
-    <script>
-      $(function () {
-          $('#duration').durationPicker({
-            onChanged: function (newVal) {
-              $('#duration-label').text(newVal);
-            }
-          });
-          $('#duration2').durationPicker({
-            showSeconds: true,
-            onChanged: function (newVal) {
-              $('#duration-label2').text(newVal);
-            }
-          });
-          $('#duration3').durationPicker({
-            onChanged: function (newVal) {
-              $('#duration-label3').text(newVal);
-            }
-          });
-          $('#duration4').durationPicker({
-            translations: {
-              day: 'dia',
-              hour: 'hora',
-              minute: 'minuto',
-              second: 'segundo',
-              days: 'dias',
-              hours: 'horas',
-              minutes: 'minutos',
-              seconds: 'segundos',
-            },
-            onChanged: function (newVal) {
-              $('#duration-label4').text(newVal);
-            }
-          });
-          $('#duration5').durationPicker({
-            showDays: false,
-            onChanged: function (newVal) {
-              $('#duration-label5').text(newVal);
-            }
-          });
-          $('#duration6').durationPicker({
-            onChanged: function (newVal, isInitializing) {
-              $('#duration-label6').text(newVal);
-              console.log('Initializing?', isInitializing);
-            }
-          });
+    <div class="col-md-offset-3 col-md-6">
+      <form>
+        <div class="form-group">
+          <label>Duration with seconds</label>
+          <input type="text" class="form-control" id="duration2">
+        </div>
+      </form>
 
-          $('#reset-picker').click(function () {
-            $('#duration6').data('durationPicker').setValue(0);
-          });
-        });
-    </script>
+      <p>Seconds: <span id="duration-label2"></span></p>
+    </div>
+
+    <div class="col-md-offset-3 col-md-6">
+      <form>
+        <div class="form-group">
+          <label>Duration disabled</label>
+          <input disabled type="text" class="form-control" id="duration3" value="86400">
+        </div>
+      </form>
+
+      <p>Seconds: <span id="duration-label3"></span></p>
+    </div>
+
+    <div class="col-md-offset-3 col-md-6">
+      <form>
+        <div class="form-group">
+          <label>Custom translations</label>
+          <input type="text" class="form-control" id="duration4" value="86400">
+        </div>
+      </form>
+
+      <p>Seconds: <span id="duration-label4"></span></p>
+    </div>
+
+    <div class="col-md-offset-3 col-md-6">
+      <form>
+        <div class="form-group">
+          <label>Duration without days</label>
+          <input type="text" class="form-control" id="duration5" value="86400">
+        </div>
+      </form>
+
+      <p>Seconds: <span id="duration-label5"></span></p>
+    </div>
+
+    <div class="col-md-offset-3 col-md-6">
+      <form>
+        <div class="form-group">
+          <label>Reset duration</label>
+          <input type="text" class="form-control" id="duration6" value="86400">
+        </div>
+      </form>
+
+      <p>Seconds: <span id="duration-label6"></span></p>
+      <p><button id="reset-picker" class="btn btn-default">Reset</button></p>
+    </div>
+
+    <div class="col-md-offset-3 col-md-6">
+      <form>
+        <div class="form-group">
+          <label>Destroy plugin</label>
+          <input type="text" class="form-control" id="duration7" value="86400">
+        </div>
+      </form>
+
+      <p>Seconds: <span id="duration-label7"></span></p>
+      <p><button id="destroy-picker" class="btn btn-default">Destroy</button></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('#duration').durationPicker({
+      onChanged: function (newVal) {
+        $('#duration-label').text(newVal);
+      }
+    });
+    $('#duration2').durationPicker({
+      showSeconds: true,
+      onChanged: function (newVal) {
+        $('#duration-label2').text(newVal);
+      }
+    });
+    $('#duration3').durationPicker({
+      onChanged: function (newVal) {
+        $('#duration-label3').text(newVal);
+      }
+    });
+    $('#duration4').durationPicker({
+      translations: {
+        day: 'dia',
+        hour: 'hora',
+        minute: 'minuto',
+        second: 'segundo',
+        days: 'dias',
+        hours: 'horas',
+        minutes: 'minutos',
+        seconds: 'segundos',
+      },
+      onChanged: function (newVal) {
+        $('#duration-label4').text(newVal);
+      }
+    });
+    $('#duration5').durationPicker({
+      showDays: false,
+      onChanged: function (newVal) {
+        $('#duration-label5').text(newVal);
+      }
+    });
+    $('#duration6').durationPicker({
+      onChanged: function (newVal, isInitializing) {
+        $('#duration-label6').text(newVal);
+        console.log('Initializing?', isInitializing);
+      }
+    });
+    $('#duration7').durationPicker({
+      onChanged: function (newVal) {
+        $('#duration-label7').text(newVal);
+      }
+    });
+
+    $('#reset-picker').click(function () {
+      $('#duration6').data('durationPicker').setValue(0);
+    });
+
+    $('#destroy-picker').click(function () {
+      $('#duration7').data('durationPicker').destroy();
+      $(this).remove();
+    })
+  });
+</script>
 
 </body>
 </html>
