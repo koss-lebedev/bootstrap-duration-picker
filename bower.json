@@ -17,7 +17,7 @@
   ],
   "homepage": "https://github.com/koss-lebedev/bootstrap-duration-picker",
   "dependencies": {
-    "bootstrap": "~3.0.0"
+    "bootstrap": "^3.0.0"
   },
   "ignore": [
     "**/.*",
