@@ -141,9 +141,15 @@
       updateUI(isInitializing);
     }
 
+    function getValue() { return mainInput.val(); }
+
     //
     // public methods
     //
+    plugin.getValue = function() {
+      return getValue();
+    };
+
     plugin.setValue = function(value) {
       setValue(value, true);
     };
